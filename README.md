@@ -19,7 +19,7 @@ Two supported channels. One framework-independent TypeScript interface.
 
 Telegram and Discord messaging connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework.
 
-Package name: `@dpro/agent-connect`. Version 0.1.0 is a release candidate; npm publication and live-account validation are pending. The tests run offline with fake provider clients.
+Package name: `agent-connect-dpro`. Version 0.1.0 is a release candidate. Its first npm publication has been submitted and is being processed; live-account validation remains pending. The tests run offline with fake provider clients.
 
 ## Requirements
 
@@ -30,15 +30,15 @@ Node.js 22.12 or newer and a persistent server process. Telegram polling and Dis
 Before registry publication, install the release archive:
 
 ```sh
-npm install ./dpro-agent-connect-0.1.0.tgz
+npm install ./agent-connect-dpro-0.1.0.tgz
 ```
 
-After publication, use `npm install @dpro/agent-connect`. The package exports ESM JavaScript and TypeScript declarations. CommonJS consumers can use dynamic `import()`.
+Once version 0.1.0 is available in the registry, use `npm install agent-connect-dpro`. The package exports ESM JavaScript and TypeScript declarations. CommonJS consumers can use dynamic `import()`.
 
 ## Telegram example
 
 ```ts
-import { ChannelConnector, TelegramTransport } from '@dpro/agent-connect';
+import { ChannelConnector, TelegramTransport } from 'agent-connect-dpro';
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 if (!token) throw new Error('TELEGRAM_BOT_TOKEN is required');
@@ -66,7 +66,7 @@ Create a bot with Telegram's BotFather. This transport uses grammY long polling 
 ## Discord example
 
 ```ts
-import { ChannelConnector, DiscordTransport } from '@dpro/agent-connect';
+import { ChannelConnector, DiscordTransport } from 'agent-connect-dpro';
 
 const token = process.env.DISCORD_BOT_TOKEN;
 if (!token) throw new Error('DISCORD_BOT_TOKEN is required');
@@ -99,7 +99,7 @@ Enable Message Content Intent in Discord Developer Portal and invite the bot wit
 
 `hooks.receive(message)` receives `channel`, `id`, `conversationId`, `senderId`, `senderName`, `text`, `timestamp`, and optional `guildId`. `hooks.onError(operation, error)` reports connect, receive or send failures. The host owns sender authorization, persistence, deduplication and agent execution. The core does not authorize users automatically.
 
-`ChannelTransport` is the extension contract: implement `start(receive, state)`, `stop()`, and `send(conversationId, text)` to add a provider. Provider-specific imports are also available at `@dpro/agent-connect/telegram` and `@dpro/agent-connect/discord`.
+`ChannelTransport` is the extension contract: implement `start(receive, state)`, `stop()`, and `send(conversationId, text)` to add a provider. Provider-specific imports are also available at `agent-connect-dpro/telegram` and `agent-connect-dpro/discord`.
 
 Text limits are 4096 characters for Telegram and 2000 for Discord. The core rejects oversized messages instead of truncating them. It does not retry sends automatically: a provider can accept a message before the network fails, making a retry potentially duplicate delivery. Attachments, rich keyboards, slash command registration and durable queues are outside this release.
 

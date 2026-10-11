@@ -1,5 +1,5 @@
 {
-  "name": "@dpro/agent-connect",
+  "name": "agent-connect-dpro",
   "description": "Framework-independent Telegram and Discord messaging connectors by Dpro.",
   "author": "Dpro",
   "repository": {
