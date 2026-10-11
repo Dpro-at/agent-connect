@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — 2026-10-11 (publication accepted; registry processing)
+## 0.2.0 — 2026-10-11
 
 - Bundle 33 messaging, inbox, webhook, API and relay integrations.
 - Keep native Telegram/Discord transports and add an optional isolated Python adapter runtime.

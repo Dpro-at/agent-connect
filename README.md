@@ -19,7 +19,7 @@
 
 Messaging and webhook connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework. Telegram and Discord retain native Node.js transports; additional adapters use an optional isolated Python runtime.
 
-Package name: `agent-connect-dpro`. Version 0.2.0 bundles all 33 integrations in the channel catalog. npm accepted publication on October 11, 2026; registry processing may delay availability. Version 0.1.0 is already available on npm. Live-account validation remains pending.
+Package name: `agent-connect-dpro`. Version 0.2.0 is available on npm and bundles all 33 integrations in the channel catalog. Registry installation and local-provider receive/send/shutdown tests have passed. Live-account validation remains pending.
 
 See the [usage and integration guide](docs/USAGE.md).
 See the complete [channel catalog and Python runtime setup](docs/CHANNELS.md).
