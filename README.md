@@ -19,7 +19,9 @@ Two supported channels. One framework-independent TypeScript interface.
 
 Telegram and Discord messaging connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework.
 
-Package name: `agent-connect-dpro`. Version 0.1.0 is a release candidate. Its first npm publication has been submitted and is being processed; live-account validation remains pending. The tests run offline with fake provider clients.
+Package name: `agent-connect-dpro`. Version 0.1.0 is available on npm; live-account validation remains pending. The tests run offline with fake provider clients.
+
+See the [usage and integration guide](docs/USAGE.md).
 
 ## Requirements
 
@@ -27,13 +29,13 @@ Node.js 22.12 or newer and a persistent server process. Telegram polling and Dis
 
 ## Installation
 
-Before registry publication, install the release archive:
+Install from npm:
 
 ```sh
-npm install ./agent-connect-dpro-0.1.0.tgz
+npm install agent-connect-dpro
 ```
 
-Once version 0.1.0 is available in the registry, use `npm install agent-connect-dpro`. The package exports ESM JavaScript and TypeScript declarations. CommonJS consumers can use dynamic `import()`.
+The [npm package](https://www.npmjs.com/package/agent-connect-dpro) exports ESM JavaScript and TypeScript declarations. CommonJS consumers can use dynamic `import()`.
 
 ## Telegram example
 
@@ -119,4 +121,4 @@ npm test
 npm pack
 ```
 
-Tests use fake provider clients and do not require Agent Player, external accounts or a model. `npm pack` builds first and includes only compiled JavaScript, declarations, README, changelog and MIT license. Internal collaboration notes and credentials are excluded.
+Tests use fake provider clients and do not require Agent Player, external accounts or a model. `npm pack` builds first and includes compiled JavaScript, declarations, README, changelog, MIT license, NOTICE and channel icons. Internal collaboration notes and credentials are excluded.

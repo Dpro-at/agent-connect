@@ -10,4 +10,4 @@
 - Root and provider-specific exports.
 - Restart cleanup and cancellation of Telegram startup before polling begins.
 
-Registry publication and live-account validation are pending.
+Published on npm as agent-connect-dpro. Live-account validation remains pending.
