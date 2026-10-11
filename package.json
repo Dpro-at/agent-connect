@@ -1,0 +1,29 @@
+{
+  "name": "@dpro/agent-connect",
+  "description": "Framework-independent Telegram and Discord messaging connectors by Dpro.",
+  "author": "Dpro",
+  "repository": { "type": "git", "url": "git+https://github.com/Dpro-at/agent-connect.git" },
+  "homepage": "https://github.com/Dpro-at/agent-connect#readme",
+  "bugs": { "url": "https://github.com/Dpro-at/agent-connect/issues" },
+  "license": "MIT",
+  "keywords": ["telegram", "discord", "channels", "messaging", "agent", "dpro"],
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./telegram": { "types": "./dist/telegram.d.ts", "import": "./dist/telegram.js" },
+    "./discord": { "types": "./dist/discord.d.ts", "import": "./dist/discord.js" }
+  },
+  "files": ["dist", "README.md", "LICENSE", "CHANGELOG.md", "NOTICE.md", "docs/brand/channels/*.svg"],
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "dependencies": { "discord.js": "^14.22.1", "grammy": "^1.40.0" },
+  "devDependencies": { "typescript": "^5.9.3", "@types/node": "^22" }
+}
