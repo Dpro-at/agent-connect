@@ -21,5 +21,12 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
       - run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r runtime/python/requirements-lock.txt
       - run: npm test
+        env:
+          AGENT_CONNECT_TEST_PYTHON: python
+      - run: node runtime/cli.mjs doctor --python python
       - run: npm pack --dry-run

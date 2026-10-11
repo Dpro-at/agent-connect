@@ -1,4 +1,7 @@
-export type ChannelId = 'telegram' | 'discord';
+import { channelInfo } from './catalog.js';
+import type { ChannelId } from './catalog.js';
+export { CHANNEL_CATALOG, channelInfo } from './catalog.js';
+export type { ChannelId } from './catalog.js';
 export type ChannelState = 'disconnected' | 'connecting' | 'connected' | 'error';
 export interface IncomingMessage {
   channel: ChannelId;
@@ -9,8 +12,10 @@ export interface IncomingMessage {
   text: string;
   timestamp: string;
   guildId?: string;
+  threadId?: string;
+  mediaUrls?: string[];
 }
-export interface Delivery { id: string; conversationId: string; }
+export interface Delivery { id: string; conversationId: string; acknowledgement?: 'provider' | 'adapter'; }
 export interface ChannelTransport {
   start(receive: (message: IncomingMessage) => Promise<void>, state: (value: ChannelState) => void): Promise<void>;
   stop(): Promise<void>;
@@ -59,7 +64,7 @@ export class ChannelConnector {
   }
   async send(conversationId: string, text: string): Promise<Delivery> {
     if (this.state !== 'connected') throw new Error(`${this.id} is not connected`);
-    const limit = this.id === 'telegram' ? 4096 : 2000;
+    const limit = channelInfo(this.id).maxTextLength;
     if (!conversationId || !text.trim() || text.length > limit) throw new Error(`Message must contain 1-${limit} characters and a destination`);
     try { return await this.transport.send(conversationId, text); }
     catch (error) {
@@ -70,3 +75,5 @@ export class ChannelConnector {
 }
 export { TelegramTransport } from './telegram.js';
 export { DiscordTransport } from './discord.js';
+export { PythonTransport } from './python.js';
+export type { PythonTransportOptions } from './python.js';

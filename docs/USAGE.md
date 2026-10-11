@@ -1,6 +1,6 @@
 # Using Agent Connect
 
-Agent Connect by Dpro connects persistent Node.js applications to Telegram and Discord. The npm package is `agent-connect-dpro`; two channels are supported.
+Agent Connect by Dpro connects persistent Node.js applications to messaging platforms, inboxes and webhooks. The npm package is `agent-connect-dpro`. Source version 0.2.0 includes 33 integrations; see the [complete catalog and optional Python setup](CHANNELS.md).
 
 ## Install
 
@@ -42,7 +42,7 @@ These screens belong to Agent Player and are not shipped by the npm package. Emp
 
 ## Release boundaries
 
-Version 0.1.0 has automated tests with fake provider clients. Live bot/model validation remains pending. Media, direct Discord messages, slash command registration, durable queues and additional channels are outside this release. A successful `send()` requires a provider acknowledgement; automatic retries are not provided.
+The native Telegram/Discord transports have automated tests with fake provider clients. The optional Python worker has a local ntfy provider test, and all 33 adapter imports/factories are checked. Live bot/model validation remains pending. The shared API currently exposes plain-text sending; full media/interactive features and durable queues are outside this boundary. Python delivery is adapter-reported, so confirm receipt in the provider. See the catalog guide for runtime/SDK/service requirements.
 
 ## Support
 

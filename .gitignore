@@ -12,6 +12,9 @@ dist/
 .npmrc
 .DS_Store
 coverage/
+__pycache__/
+*.pyc
+.venv/
 internal/
 docs/internal/
 **/HANDOFF.md

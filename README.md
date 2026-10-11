@@ -2,7 +2,7 @@
 
 # Agent Connect
 
-**Telegram and Discord messaging connectors by Dpro.**
+**Messaging and webhook connectors by Dpro.**
 
 <p>
   <img src="docs/brand/channels/telegram.svg" alt="Telegram" title="Telegram" height="32">
@@ -10,22 +10,23 @@
   <img src="docs/brand/channels/discord.svg" alt="Discord" title="Discord" height="32">
 </p>
 
-Two supported channels. One framework-independent TypeScript interface.
+33 bundled integrations. One framework-independent TypeScript interface.
 
 [![CI](https://github.com/Dpro-at/agent-connect/actions/workflows/ci.yml/badge.svg)](https://github.com/Dpro-at/agent-connect/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 </div>
 
-Telegram and Discord messaging connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework.
+Messaging and webhook connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework. Telegram and Discord retain native Node.js transports; additional adapters use an optional isolated Python runtime.
 
-Package name: `agent-connect-dpro`. Version 0.1.0 is available on npm; live-account validation remains pending. The tests run offline with fake provider clients.
+Package name: `agent-connect-dpro`. Source version 0.2.0 bundles all 33 integrations in the channel catalog; its publication is being prepared. Version 0.1.0 is already available on npm. Live-account validation remains pending.
 
 See the [usage and integration guide](docs/USAGE.md).
+See the complete [channel catalog and Python runtime setup](docs/CHANNELS.md).
 
 ## Requirements
 
-Node.js 22.12 or newer and a persistent server process. Telegram polling and Discord Gateway connections are not suited to short-lived serverless handlers. Run one process per bot token.
+Node.js 22.12 or newer and a persistent server process. Additional adapters require Python 3.11–3.13, the base runtime and provider-specific SDKs or bridges. No Python environment or account is installed/activated during npm installation. Run one process per bot token.
 
 ## Installation
 
@@ -93,7 +94,7 @@ Enable Message Content Intent in Discord Developer Portal and invite the bot wit
 
 | Member | Contract |
 | --- | --- |
-| `id` | `telegram` or `discord` |
+| `id` | Any ID in `CHANNEL_CATALOG`; use a matching native or Python transport |
 | `state` | `disconnected`, `connecting`, `connected`, or `error` |
 | `connect()` | Start the provider transport; concurrent calls share startup |
 | `disconnect()` | Stop the transport and reject messages from the previous connection |

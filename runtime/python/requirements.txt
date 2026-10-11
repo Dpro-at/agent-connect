@@ -1,0 +1,13 @@
+# Base adapter compatibility runtime. Install provider SDKs separately as needed.
+aiohttp>=3.12,<4
+httpx[socks]>=0.28,<1
+PyYAML>=6,<7
+rich>=14,<16
+python-dotenv>=1,<2
+requests>=2.32,<3
+prompt_toolkit>=3,<4
+psutil>=7,<8
+packaging>=25
+filelock>=3.18,<5
+jiter>=0.10,<1
+cryptography>=46,<51
