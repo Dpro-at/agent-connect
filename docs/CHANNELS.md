@@ -113,3 +113,8 @@ The table below is generated from the bundled catalog. Runtime prerequisites app
 | whatsapp | WhatsApp | python | WHATSAPP_ENABLED |
 | whatsapp_cloud | WhatsApp Cloud API | python | Provider-specific settings.extra; see adapter setup |
 | yuanbao | Yuanbao | python | Provider-specific settings.extra; see adapter setup |
+
+
+## Social publishing inventory (0.3.0)
+
+`SOCIAL_CAPABILITIES` from `agent-connect-dpro/social` lists the six implemented social adapters separately from conversational channel IDs. Facebook Page feed text/single image; Instagram feed image/Reel/Story; LinkedIn text/single image; X text/uploaded images; YouTube video; TikTok URL-based photos/video. All are mock-tested only, with no real-account delivery verification. The browser-only `/studio` export supplies a reusable editor, previews and calendar. See [USAGE](USAGE.md) for exact format limits, runtime credentials, app reviews, async status and host responsibilities.

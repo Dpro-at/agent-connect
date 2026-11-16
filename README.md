@@ -19,7 +19,7 @@
 
 Messaging and webhook connectors by **Dpro**. Agent Connect is a standalone TypeScript library for persistent Node.js applications. It does not require Next.js, React, Fastify, a database, or a particular AI framework. Telegram and Discord retain native Node.js transports; additional adapters use an optional isolated Python runtime.
 
-Package name: `agent-connect-dpro`. Version 0.2.0 is available on npm and bundles all 33 integrations in the channel catalog. Registry installation and local-provider receive/send/shutdown tests have passed. Live-account validation remains pending.
+Package name: `agent-connect-dpro`. Version 0.3.0 adds social publishing adapters and an embeddable studio alongside all 33 integrations in the channel catalog. Registry installation and local-provider receive/send/shutdown tests have passed. Live-account validation remains pending.
 
 See the [usage and integration guide](docs/USAGE.md).
 See the complete [channel catalog and Python runtime setup](docs/CHANNELS.md).
@@ -111,6 +111,25 @@ Text limits are 4096 characters for Telegram and 2000 for Discord. The core reje
 Import the library into an Express, Fastify, NestJS or persistent Next.js-adjacent Node.js service, then supply your own configuration and identity checks. For PHP, Python or other backend languages, wrap the library in a persistent HTTP service and call that service. React UI and HTTP endpoints are host integrations, not dependencies of the core.
 
 Agent Player integrates the library through a separate Fastify adapter and React panel. The application repository contains its setup and integration tests; they are not part of this package.
+
+## Social publishing and reusable studio
+
+The existing 33 integrations are messaging/webhook adapters. Social publishing uses separate server-side subpaths and a browser-only UI:
+
+| Import | Implemented scope |
+| --- | --- |
+| `/social` | Contracts, safe errors and capability inventory |
+| `/facebook` | Page feed text or one image URL |
+| `/instagram` | One feed image, Reel or Story; container creation and explicit completion |
+| `/linkedin` | Person/organization text or one uploaded image |
+| `/x` | User-context text and up to four uploaded images; user-owned credentials |
+| `/youtube` | Video upload, resumable session checkpoints, resume and processing status |
+| `/tiktok` | URL-based video/photo Direct Post, creator restrictions and status |
+| `/studio` | Reusable editor, six platform previews, calendar and content library |
+
+All provider implementations are **mock-tested only**. No real-account delivery, app reviews or OAuth flows have been verified. Credentials are resolved at runtime from the host; the package stores none. These additions are included from version 0.3.0. Provider-specific limitations, prerequisites and integration examples are in [USAGE](docs/USAGE.md).
+
+Run `npm run demo` in this source checkout and open `http://127.0.0.1:4318` for a local fake-data studio. The demo uses the same `/studio` component that consumers import; it never contacts a social API. Its development server is not included in the package.
 
 ## Development
 

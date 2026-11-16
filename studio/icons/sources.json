@@ -1,0 +1,50 @@
+[
+  {
+    "platform": "facebook",
+    "source": "https://thesvg.org/icons/facebook/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "CC0-1.0",
+    "guidelines": "https://www.meta.com/brand/resources/facebook/logo/",
+    "usage": "Provider identification only; trademarks belong to their owners."
+  },
+  {
+    "platform": "instagram",
+    "source": "https://thesvg.org/icons/instagram/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "CC0-1.0",
+    "guidelines": "https://www.meta.com/brand/resources/instagram/instagram-brand/",
+    "usage": "Provider identification only; trademarks belong to their owners."
+  },
+  {
+    "platform": "linkedin",
+    "source": "https://thesvg.org/icons/linkedin/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "MIT",
+    "guidelines": "https://brand.linkedin.com/",
+    "usage": "Provider identification only; trademarks belong to their owners."
+  },
+  {
+    "platform": "x",
+    "source": "https://thesvg.org/icons/x/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "CC0-1.0",
+    "guidelines": "https://about.x.com/en/who-we-are/brand-toolkit",
+    "usage": "Provider identification only; trademarks belong to their owners."
+  },
+  {
+    "platform": "youtube",
+    "source": "https://thesvg.org/icons/youtube/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "CC0-1.0",
+    "guidelines": "https://brand.youtube",
+    "usage": "Provider identification only; trademarks belong to their owners."
+  },
+  {
+    "platform": "tiktok",
+    "source": "https://thesvg.org/icons/tiktok/default.svg",
+    "registry": "https://github.com/glincker/thesvg",
+    "license": "CC0-1.0",
+    "guidelines": null,
+    "usage": "Provider identification only; trademarks belong to their owners."
+  }
+]

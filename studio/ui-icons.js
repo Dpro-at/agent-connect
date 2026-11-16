@@ -1,0 +1,36 @@
+/** Local 24px stroke icons; brand marks are vendored separately under icons/. */
+const paths = {
+  edit: '<path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18m-13 4h2m4 0h2"/>',
+  posts: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6m-6 4h6m-6 4h4"/>',
+  accounts: '<circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m2-16a3 3 0 0 1 0 6m2 4a5 5 0 0 1 2 4v2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  check: '<path d="m5 12 4 4L19 6"/>',
+  chevronLeft: '<path d="m15 6-6 6 6 6"/>',
+  chevronRight: '<path d="m9 6 6 6-6 6"/>',
+  more: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+  upload: '<path d="M12 16V3m-5 5 5-5 5 5M4 15v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1"/><path d="m21 15-5-5L5 21"/>',
+  video: '<rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-3v10l-5-3"/>',
+  trash: '<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/>',
+  heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>',
+  comment: '<path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/>',
+  share: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+  bookmark: '<path d="M19 21l-7-5-7 5V3h14Z"/>',
+  thumb: '<path d="M7 10h-4v11h4m0-11 5-8a3 3 0 0 1 2 4l-1 4h7a2 2 0 0 1 2 2l-2 7a3 3 0 0 1-3 2H7Z"/>',
+  repeat: '<path d="m17 2 4 4-4 4M3 11V8a2 2 0 0 1 2-2h16M7 22l-4-4 4-4m14-1v3a2 2 0 0 1-2 2H3"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
+  moon: '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>',
+  undo: '<path d="M3 10h11a7 7 0 0 1 0 14M3 10l6-6m-6 6 6 6"/>',
+  close: '<path d="m6 6 12 12M6 18 18 6"/>',
+};
+export function uiIcon(name) { return `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] ?? paths.info}</svg>`; }
+export const platformIcons = {
+  facebook: new URL('./icons/facebook.svg', import.meta.url).href,
+  instagram: new URL('./icons/instagram.svg', import.meta.url).href,
+  linkedin: new URL('./icons/linkedin.svg', import.meta.url).href,
+  x: new URL('./icons/x.svg', import.meta.url).href,
+  youtube: new URL('./icons/youtube.svg', import.meta.url).href,
+  tiktok: new URL('./icons/tiktok.svg', import.meta.url).href,
+};

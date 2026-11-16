@@ -1,6 +1,6 @@
 {
   "name": "agent-connect-dpro",
-  "description": "Reusable messaging and webhook connectors by Dpro, with 33 bundled integrations and an optional isolated Python runtime.",
+  "description": "Messaging connectors, social publishing adapters and an embeddable social studio by Dpro.",
   "author": "Dpro",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "agent",
     "dpro"
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -43,6 +43,38 @@
     "./catalog": {
       "types": "./dist/catalog.d.ts",
       "import": "./dist/catalog.js"
+    },
+    "./social": {
+      "types": "./dist/social.d.ts",
+      "import": "./dist/social.js"
+    },
+    "./facebook": {
+      "types": "./dist/facebook.d.ts",
+      "import": "./dist/facebook.js"
+    },
+    "./instagram": {
+      "types": "./dist/instagram.d.ts",
+      "import": "./dist/instagram.js"
+    },
+    "./linkedin": {
+      "types": "./dist/linkedin.d.ts",
+      "import": "./dist/linkedin.js"
+    },
+    "./x": {
+      "types": "./dist/x.d.ts",
+      "import": "./dist/x.js"
+    },
+    "./youtube": {
+      "types": "./dist/youtube.d.ts",
+      "import": "./dist/youtube.js"
+    },
+    "./tiktok": {
+      "types": "./dist/tiktok.d.ts",
+      "import": "./dist/tiktok.js"
+    },
+    "./studio": {
+      "types": "./studio/index.d.ts",
+      "import": "./studio/index.js"
     }
   },
   "files": [
@@ -65,7 +97,8 @@
     "runtime/python/vendor/**/*.json",
     "runtime/python/vendor/**/*.js",
     "runtime/python/vendor/**/*.mjs",
-    "runtime/python/vendor/**/*.ts"
+    "runtime/python/vendor/**/*.ts",
+    "studio"
   ],
   "engines": {
     "node": ">=22.12.0"
@@ -73,7 +106,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test test/*.test.mjs",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "demo": "node demo/server.mjs"
   },
   "dependencies": {
     "discord.js": "^14.22.1",
