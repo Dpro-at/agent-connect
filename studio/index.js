@@ -27,10 +27,6 @@ const shell = root.querySelector('.studio-shell');
 function setTheme(theme) {
   if (!['light', 'dark', 'system'].includes(theme)) throw new Error('Invalid studio theme');
   shell.dataset.theme = theme;
-  const dark = theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-  $('theme-toggle').innerHTML = uiIcon(dark ? 'sun' : 'moon');
-  $('theme-toggle').setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
-  $('theme-toggle').title = $('theme-toggle').getAttribute('aria-label');
 }
 setTheme(options.theme ?? 'system');
 $('new-post').title = 'New post (⌘/Ctrl+N)';
@@ -41,19 +37,20 @@ const accountFor = platform => accountsFor(platform)[0];
 const accountKey = account => `${account.platform}:${account.id}`;
 let selectedAccounts = new Set();
 let chooserPlatform = null;
-const displayName = platform => configuredAccounts.find(account => account.platform === platform && selectedAccounts.has(accountKey(account)))?.name ?? accountFor(platform)?.name ?? 'Sample studio';
+const displayName = platform => configuredAccounts.find(account => account.platform === platform && selectedAccounts.has(accountKey(account)))?.name ?? accountFor(platform)?.name ?? 'Your account';
 
 const channels = [
   { id: 'facebook', name: 'Facebook' }, { id: 'instagram', name: 'Instagram' },
   { id: 'linkedin', name: 'LinkedIn' }, { id: 'x', name: 'X' },
   { id: 'youtube', name: 'YouTube' }, { id: 'tiktok', name: 'TikTok' },
-];
+].filter(channel => !options.platforms || options.platforms.includes(channel.id));
+if (!channels.length) throw new Error('At least one studio platform is required');
 const escape = text => String(text ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const icon = id => `<span class="platform-icon ${id}" aria-hidden="true"><img src="${platformIcons[id]}" alt="" draggable="false"></span>`;
 const localDate = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 const now = new Date();
 let calendarMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-let activePreview = 'instagram';
+let activePreview = channels.some(channel => channel.id === 'instagram') ? 'instagram' : channels[0].id;
 let selected = ['facebook', 'instagram', 'linkedin'];
 const sampleMedia = { url: poster, kind: 'image', name: 'social-studio-cover.svg', details: '1080 × 1080 · sample artwork' };
 let media = { ...sampleMedia };
@@ -116,16 +113,16 @@ function preview() {
   const ratio = ['reel', 'story'].includes($('placement').value) || activePreview === 'tiktok' ? 'vertical' : $('ratio').value;
   const asset = media ? `<${media.kind === 'video' ? 'video controls playsinline' : 'img'} src="${escape(media.url)}" ${media.kind === 'video' ? '' : 'alt="Post media preview"'}>${media.kind === 'video' ? '</video>' : ''}` : '<div class="preview-placeholder">Add media to preview your post</div>';
   const image = `<div class="preview-media ${ratio}">${asset}</div>`;
-  const header = `<div class="post-header"><span class="avatar">S</span><div><strong>${escape(displayName(activePreview))}</strong><small>${activePreview === 'linkedin' ? 'Stories worth sharing · Just now' : `${escape(displayName(activePreview))} · Just now`}</small></div><span class="post-more">${uiIcon('more')}</span></div>`;
+  const header = `<div class="post-header"><span class="avatar">${uiIcon('accounts')}</span><div><strong>${escape(displayName(activePreview))}</strong><small>${'Post preview'}</small></div><span class="post-more">${uiIcon('more')}</span></div>`;
   let card;
   if (activePreview === 'tiktok' || (activePreview === 'instagram' && ['reel', 'story'].includes($('placement').value))) {
-    card = `<div class="video-preview">${image}<div class="video-side"><span>${uiIcon('heart')}</span><span>${uiIcon('comment')}</span><span>${uiIcon('share')}</span></div><div class="video-overlay"><strong>${escape(displayName(activePreview))}</strong><p>${text}</p><small>Original sound · Sample studio</small></div></div>`;
+    card = `<div class="video-preview">${image}<div class="video-side"><span>${uiIcon('heart')}</span><span>${uiIcon('comment')}</span><span>${uiIcon('share')}</span></div><div class="video-overlay"><strong>${escape(displayName(activePreview))}</strong><p>${text}</p><small>Original audio</small></div></div>`;
   } else if (activePreview === 'instagram') {
     card = `${header}${image}<div class="post-actions instagram-actions"><span>${uiIcon('heart')}</span><span>${uiIcon('comment')}</span><span>${uiIcon('share')}</span><span>${uiIcon('bookmark')}</span></div><p class="post-caption instagram-caption"><strong>${escape(displayName(activePreview))}</strong> ${text}</p>`;
   } else if (activePreview === 'youtube') {
     card = `${image}<div class="youtube-title">${title}</div>${header}<p class="post-caption">${text}</p>`;
   } else {
-    card = `${header}<p class="post-caption">${text}</p>${media ? image : ''}<div class="post-engagement"><span>${activePreview === 'x' ? 'No engagement yet' : 'Be the first to react'}</span><span>Demo preview</span></div><div class="post-actions">${activePreview === 'x' ? `<span>${uiIcon('comment')} Reply</span><span>${uiIcon('repeat')} Repost</span><span>${uiIcon('heart')} Like</span>` : `<span>${uiIcon('thumb')} Like</span><span>${uiIcon('comment')} Comment</span><span>${uiIcon('share')} Share</span>`}</div>`;
+    card = `${header}<p class="post-caption">${text}</p>${media ? image : ''}<div class="post-engagement"><span>${activePreview === 'x' ? 'No engagement yet' : 'Be the first to react'}</span><span>Preview</span></div><div class="post-actions">${activePreview === 'x' ? `<span>${uiIcon('comment')} Reply</span><span>${uiIcon('repeat')} Repost</span><span>${uiIcon('heart')} Like</span>` : `<span>${uiIcon('thumb')} Like</span><span>${uiIcon('comment')} Comment</span><span>${uiIcon('share')} Share</span>`}</div>`;
   }
   $('post-preview').setAttribute('role', 'tabpanel');
   $('post-preview').setAttribute('aria-labelledby', `preview-${activePreview}`);
@@ -154,7 +151,7 @@ function loadPost(post) {
   selectedAccounts = new Set(configuredAccounts.filter(account => { const ids = post?.accountIds?.[account.platform]; return post ? ids === undefined ? post.channels.includes(account.platform) : Array.isArray(ids) ? ids.includes(account.id) : ids === account.id : true; }).map(accountKey));
   chooserPlatform = null; $('account-search').value = ''; renderAccountChooser();
   releaseMedia(); editingId = post?.id ?? null; selected = post ? [...post.channels] : demo ? ['facebook', 'instagram', 'linkedin'] : configuredAccounts.map(a => a.platform);
-  activePreview = selected[0] ?? 'instagram'; media = post?.media ?? null;
+  activePreview = selected.find(platform => channels.some(channel => channel.id === platform)) ?? (channels.some(channel => channel.id === 'instagram') ? 'instagram' : channels[0].id); media = post?.media ?? null;
   $('title').value = post?.title ?? ''; $('caption').value = post?.text ?? ''; $('placement').value = post?.placement ?? 'feed'; $('ratio').value = post?.ratio ?? 'square';
   $('schedule').value = post?.schedule ?? ''; $('privacy').value = post?.privacy ?? 'private'; $('consent').checked = false; $('post-options').open = false;
   $('editor-status').className = `status ${post?.status ?? 'draft'}`; $('editor-status').textContent = post?.status === 'published' && demo ? 'Published demo' : post?.status ?? 'Draft';
@@ -180,7 +177,7 @@ async function save(status) {
       if (!saved || !saved.id || !Array.isArray(saved.channels) || !['draft', 'scheduled', 'processing', 'published', 'failed'].includes(saved.status)) throw Error();
       Object.assign(item, saved);
     } catch { return toast('Could not save this post. Check the connection and try again.'); }
-    finally { buttons.forEach(button => { button.disabled = false; }); }
+    finally { buttons.forEach(button => { button.disabled = button.id === 'publish' ? !options.onPublish : !options.onSave; }); }
   }
   const old = posts.findIndex(p => p.id === item.id); if (old >= 0) posts[old] = item; else posts.push(item);
   persist(); updateCount();
@@ -389,10 +386,6 @@ listen($('prev-month'), 'click', () => { calendarMonth.setMonth(calendarMonth.ge
 listen($('next-month'), 'click', () => { calendarMonth.setMonth(calendarMonth.getMonth() + 1); renderCalendar(); });
 listen($('today'), 'click', () => { calendarMonth = new Date(now.getFullYear(), now.getMonth(), 1); renderCalendar(); });
 listen($('reset'), 'click', () => { deletedPost = null; $('status-filter').value = 'all'; if (demo) configuredAccounts.splice(0, configuredAccounts.length, ...channels.map(channel => ({platform:channel.id,id:`demo-${channel.id}-1`,name:'Sample studio'}))); posts = seed(); persist(); updateCount(); loadPost(posts[0]); toast('Sample content restored.'); });
-listen($('theme-toggle'), 'click', () => {
-  const dark = shell.dataset.theme === 'dark' || (shell.dataset.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-  setTheme(dark ? 'light' : 'dark');
-});
 listen($('more-menu'), 'click', () => {
   $('studio-menu').hidden = !$('studio-menu').hidden;
   $('more-menu').setAttribute('aria-expanded', String(!$('studio-menu').hidden));
@@ -422,9 +415,10 @@ listen(root, 'keydown', event => {
 });
 listen($('reset'), 'click', () => { $('studio-menu').hidden = true; $('more-menu').setAttribute('aria-expanded', 'false'); });
 if (!demo) {
-  $('workspace-name').textContent = options.workspaceName ?? 'My workspace';
+  $('save-draft').disabled = !options.onSave;
+  $('schedule-post').disabled = !options.onSave;
+  $('publish').disabled = !options.onPublish;
   $('reset').hidden = true; $('more-menu').hidden = true;
-  root.querySelector('.local-pill').hidden = true;
   root.querySelector('.account-notice').textContent = 'Accounts are provided by your workspace. Credentials stay on your server.';
   $('publish').textContent = 'Publish';
   root.querySelector('#status-filter option[value=published]').textContent = 'Published';

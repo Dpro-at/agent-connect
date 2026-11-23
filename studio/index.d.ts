@@ -20,9 +20,9 @@ export type StudioView = 'compose' | 'calendar' | 'library' | 'accounts';
 export type StudioTheme = 'light' | 'dark' | 'system';
 export interface StudioController { setPosts(posts: StudioPost[]): void; setAccounts(accounts: StudioAccount[]): void; setTheme(theme: StudioTheme): void; destroy(): void; }
 export type StudioOptions = {
-  mode: 'demo'; storageKey?: string; theme?: StudioTheme; views?: StudioView[]; initialView?: StudioView;
+  mode: 'demo'; platforms?: StudioPlatform[]; storageKey?: string; theme?: StudioTheme; views?: StudioView[]; initialView?: StudioView;
 } | {
-  mode: 'connected'; workspaceName: string; connectablePlatforms?: StudioPlatform[]; theme?: StudioTheme; views?: StudioView[]; initialView?: StudioView;
+  mode: 'connected'; platforms?: StudioPlatform[]; workspaceName?: string; connectablePlatforms?: StudioPlatform[]; theme?: StudioTheme; views?: StudioView[]; initialView?: StudioView;
   /** All available accounts, including multiple accounts on the same platform. No package-imposed count limit. */
   accounts: StudioAccount[]; posts: StudioPost[];
   /** Return authoritative persisted state; the UI never calls publishing APIs itself. */

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — 2026-11-23
+
+- Remove the workspace label, theme toggle and Demo badge from the studio header while preserving host-controlled themes.
+- Start the local composer with empty host-owned data instead of seeded accounts or simulated posts.
+- Add optional platform selection for the studio; the local composer omits X until enabled by its host.
+- Use neutral preview placeholders and disable save/publish actions when the host has not connected them.
+
 ## 0.3.0 — 2026-11-16
 
 - Add Flowxtra-style connection dialog and per-account check/reconnect/disconnect callbacks, explicit confirmation, safe failure/cancellation, expiry states and unavailable-target exclusion.

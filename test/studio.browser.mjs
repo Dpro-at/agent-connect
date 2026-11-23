@@ -6,6 +6,18 @@ export async function verifyStudio(page, url = 'http://127.0.0.1:4318') {
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(url);
+  // The local entrypoint is an empty connected shell; sample fixtures are test-only.
+  assert.equal(await page.locator('#workspace-name, #theme-toggle, .local-pill').count(), 0);
+  assert.equal(await page.locator('#caption').inputValue(), '');
+  assert.equal(await page.locator('#channel-picker [data-channel=x]').count(), 0);
+  assert.equal(await page.locator('#publish').isDisabled(), true);
+  const mountFixtures = () => page.evaluate(async () => {
+    const { mountSocialStudio } = await import('/studio/index.js');
+    const previous = document.getElementById('studio');
+    const host = document.createElement('div'); host.id = 'studio'; previous.replaceWith(host);
+    window.__studioTestController = await mountSocialStudio(host, {mode:'demo'});
+  });
+  await mountFixtures();
   const reset = async () => {
     await page.locator('#more-menu').click();
     await page.locator('#reset').click();
@@ -83,6 +95,7 @@ export async function verifyStudio(page, url = 'http://127.0.0.1:4318') {
   await page.locator('[data-date]').first().click();
   assert.equal(await page.locator('#compose-view').isVisible(), true);
   await page.reload();
+  await mountFixtures();
   await page.locator('[data-view=library]').click();
   assert.match(await page.locator('#post-list').innerText(), /Browser test post/);
   await page.locator('#status-filter').selectOption('scheduled');
@@ -128,9 +141,9 @@ export async function verifyStudio(page, url = 'http://127.0.0.1:4318') {
     await page.locator('[data-view=compose]').click();
   }
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.getByRole('button', { name: 'Switch to dark theme', exact: true }).click();
+  await page.evaluate(() => window.__studioTestController.setTheme('dark'));
   assert.equal(await page.locator('.studio-shell').getAttribute('data-theme'), 'dark');
-  await page.getByRole('button', { name: 'Switch to light theme', exact: true }).click();
+  await page.evaluate(() => window.__studioTestController.setTheme('light'));
   await page.evaluate(() => { document.getElementById('studio').style.width = '720px'; });
   const columns = await page.locator('.compose-grid').evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length);
   assert.equal(columns, 1);
